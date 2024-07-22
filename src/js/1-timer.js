@@ -3,13 +3,14 @@ import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-let userSelectedDate;
 const datetimePicker = document.querySelector('#datetime-picker');
-const startButton = document.querySelector('.button');
+const startButton = document.querySelector('button');
 const daysSpan = document.querySelector('[data-days]');
 const hoursSpan = document.querySelector('[data-hours]');
 const minutesSpan = document.querySelector('[data-minutes]');
 const secondsSpan = document.querySelector('[data-seconds]');
+let userSelectedDate;
+startButton.disabled = true;
 
 const options = {
   enableTime: true,
@@ -43,6 +44,7 @@ startButton.addEventListener('click', () => {
     const timeDifference = userSelectedDate - now;
 
     if (timeDifference <= 0) {
+      datetimePicker.disabled = false;
       clearInterval(countdown);
       return;
     }
@@ -69,7 +71,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
